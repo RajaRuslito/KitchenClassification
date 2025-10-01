@@ -9,7 +9,7 @@ def split_dataset(input_dir, output_dir, split_ratio=0.8):
     split_ratio: persentase train (default 0.8)
     """
 
-    # Pastikan output_dir ada
+    # Memastikan output_dir ada
     os.makedirs(output_dir, exist_ok=True)
 
     # Loop setiap kelas (clean, dirty)
@@ -41,7 +41,7 @@ def split_dataset(input_dir, output_dir, split_ratio=0.8):
         print(f"[{class_name}] Total: {len(images)}, Train: {len(train_images)}, Val: {len(val_images)}")
 
 if __name__ == "__main__":
-    input_dataset = "./dataset_dapur"       # asal dataset
-    output_dataset = "./dataset_dapur_split" # dataset hasil split
+    input_dataset = "./dataset_dapur"       
+    output_dataset = "./dataset_dapur_split" 
     split_dataset(input_dataset, output_dataset, split_ratio=0.8)
-    print("✅ Dataset berhasil di-split!")
+    print("Dataset berhasil di-split!")

@@ -6,9 +6,9 @@ from torch.utils.data import DataLoader
 import os
 
 def main():
-    # ==== Config ====
-    data_dir = "../dataset_dapur_split"   # ganti sesuai dataset lu
-    num_classes = 2           # ubah sesuai jumlah kelas
+    # Config 
+    data_dir = "../dataset_dapur_split"  
+    num_classes = 2           
     batch_size = 16
     num_epochs = 20
     learning_rate = 1e-4
@@ -16,7 +16,7 @@ def main():
 
     print(f"Training akan jalan di: {device}")
 
-    # ==== Data Augmentation & Normalization ====
+    # Data Augmentation & Normalization 
     data_transforms = {
         "train": transforms.Compose([
             transforms.Resize((224, 224)),
@@ -34,7 +34,7 @@ def main():
         ]),
     }
 
-    # ==== Load Dataset ====
+    # Load Dataset 
     image_datasets = {
         x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x])
         for x in ["train", "val"]
@@ -49,7 +49,7 @@ def main():
     class_names = image_datasets["train"].classes
     print("Classes:", class_names)
 
-    # ==== Load Pretrained ResNet50 ====
+    # Load Pretrained ResNet50 
     model = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V2)
     for param in model.parameters():
         param.requires_grad = False  # freeze feature extractor
@@ -58,11 +58,11 @@ def main():
     model.fc = nn.Linear(model.fc.in_features, num_classes)
     model = model.to(device)
 
-    # ==== Loss & Optimizer ====
+    # Loss & Optimizer 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.fc.parameters(), lr=learning_rate)
 
-    # ==== Training Loop ====
+    # Training Loop 
     for epoch in range(num_epochs):
         print(f"Epoch {epoch+1}/{num_epochs}")
         print("-" * 20)
@@ -98,7 +98,7 @@ def main():
 
             print(f"{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}")
 
-    # ==== Save Model ====
+    # Save Model 
     torch.save(model.state_dict(), "resnet50_kitchen.pth")
     print("Model tersimpan sebagai resnet50_kitchen.pth")
 

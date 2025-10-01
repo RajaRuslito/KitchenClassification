@@ -25,22 +25,22 @@ def scrape_images():
         for keyword in keywords:
             print(f"[INFO] Scraping '{keyword}' into '{label}' folder...")
 
-            # --- Google ---
+            # Google 
             google_crawler = GoogleImageCrawler(storage={'root_dir': save_path})
             google_crawler.crawl(keyword=keyword, max_num=MAX_NUM)
 
-            # --- Bing ---
+            # Bing 
             bing_crawler = BingImageCrawler(storage={'root_dir': save_path})
             bing_crawler.crawl(keyword=keyword, max_num=MAX_NUM)
 
-            # --- Flickr (butuh API Key) ---
+            # Flickr 
             # flickr_crawler = FlickrImageCrawler(
             #     api_key='YOUR_FLICKR_API_KEY',
             #     storage={'root_dir': save_path}
             # )
             # flickr_crawler.crawl(tags=keyword, max_num=MAX_NUM)
 
-    print("\n✅ Dataset scraping selesai!")
+    print("\n Dataset scraping selesai!")
 
 if __name__ == "__main__":
     scrape_images()

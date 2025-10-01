@@ -37,7 +37,7 @@ def scrape_images():
             bing_crawler = BingImageCrawler(storage={'root_dir': save_path})
             bing_crawler.crawl(keyword=keyword, max_num=MAX_NUM)
 
-    print("\n✅ Scraping selesai! Sekarang cek gambar...")
+    print("\nScraping selesai! Sekarang cek gambar...")
 
 def clean_images():
     deleted = 0

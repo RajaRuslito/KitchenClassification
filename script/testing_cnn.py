@@ -59,9 +59,9 @@ def plot_classification_report(report_dict, class_names):
         plt.show()
 
 def main():
-    # ==== Config ====
+    # Config 
     model_path = "resnet50_kitchen.pth"
-    class_names = ["clean", "dirty"]  # ganti sesuai dataset
+    class_names = ["clean", "dirty"]
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     print(f"Inference akan jalan di: {device}")
@@ -69,13 +69,13 @@ def main():
     # Load model
     model = load_model(model_path, num_classes=len(class_names), device=device)
 
-    # ==== Tes 1 gambar ====
-    test_image = "../dataset_dapur_split/val/dirty/000005.jpg"  # ganti path sesuai gambar lo
+    # Tes 1 gambar 
+    test_image = "../dataset_dapur_split/val/dirty/000005.jpg" 
     pred, prob, _ = predict_image(model, test_image, class_names, device)
     if pred is not None:
         print(f"Gambar: {test_image} → Prediksi: {pred} ({prob:.2f})")
 
-    # ==== Evaluasi semua data di folder test ====
+    # Evaluasi semua data di folder test 
     test_folder = "../dataset_dapur_split/val"
     print(f"\nEvaluasi folder: {test_folder}")
 
@@ -98,7 +98,7 @@ def main():
                     y_true.append(true_idx)
                     y_pred.append(pred_idx)
 
-    # ==== Hasil evaluasi ====
+    # Hasil evaluasi 
     print("\n=== Evaluasi Model ===")
     acc = accuracy_score(y_true, y_pred)
     print("Accuracy:", acc)
@@ -109,7 +109,7 @@ def main():
     cm = confusion_matrix(y_true, y_pred)
     print("Confusion Matrix:\n", cm)
 
-    # ==== Plot grafik ====
+    # Plot grafik 
     plot_confusion_matrix(cm, class_names)
     plot_classification_report(report, class_names)
 
